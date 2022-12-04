@@ -2,12 +2,14 @@
 namespace simulador_gravitacional_2D{
 	public class Corpo:CorpoAb{
         private string nome;
-        private float massa;
-        private float densidade;
-        private float posX;
-        private float posY;
-        private float velX;
-        private float velY;
+        private double massa;
+        private double densidade;
+        private double posX;
+        private double posY;
+        private double velX;
+        private double velY;
+        private double forcaX;
+        private double forcaY;
 
         public Corpo(){
             nome = "";
@@ -17,25 +19,38 @@ namespace simulador_gravitacional_2D{
             posY = 0;
             velX = 0;
             velY = 0;
+            forcaX = 0;
+            forcaY = 0;
         }
 
-        public override float getMassa(){
+        public override double getMassa(){
             return massa;
+        }
+        public void setMassa( double m ){
+            massa = m;
         }
 
         // get set velocidadeX
-        public override float getVelocidadeX(){
+        public string getNome(){
+            return nome;
+        }
+        public void setNome( string n){
+            nome = n;
+        }
+
+        // get set velocidadeX
+        public override double getVelocidadeX(){
             return velX;
         }
-        public override void setVelocidadeX( float vx ){
+        public override void setVelocidadeX( double vx ){
             velX = vx;
         }
 
         // get set velocidadeY
-        public override float getVelocidadeY(){
+        public override double getVelocidadeY(){
             return velY;
         }
-        public override void setVelocidadeY(float vy){
+        public override void setVelocidadeY(double vy){
             velY = vy;
         }
 
@@ -50,48 +65,58 @@ namespace simulador_gravitacional_2D{
         }
 
         // get set posX
-        public override float getPosX(){
+        public override double getPosX(){
             return posX;
         }
-        public override void setPosX( float px ){
+        public override void setPosX( double px ){
             posX = px;
         }
 
         // get set posY
-        public override float getPosY(){
+        public override double getPosY(){
             return posY;
         }
-        public override void setPosY(float py){
+        public override void setPosY(double py){
             posY = py;
         }
 
         // get set densidade
-        public override float getDensidade(){
+        public override double getDensidade(){
             return densidade;
         }
-        public override void setDensidade(float d){
+        public override void setDensidade(double d){
             densidade = d;
         }
 
         // get set forcaX
-        public override float getForcaX(){
-            return 0;
+        public override double getForcaX(){
+            return forcaX;
         }
-        public override void setForcaX( float fx ){
-            float forcaX = fx;
+        public override void setForcaX( double fx ){
+            forcaX = fx;
         }
 
         // get set forcaY
-        public override float getForcaY(){
-            return 0;
+        public override double getForcaY(){
+            return forcaY;
         }
-        public override void setForcaY(float fy){
-            float forcaY = fy;
+        public override void setForcaY(double fy){
+            forcaY = fy;
         }
 
-        public float getVolume(){
+        public double getVolume(){
             return massa / densidade;
         }
+
+        public static Corpo operator +(Corpo corpo1, Corpo corpo2){
+            Corpo corpoResultante = new Corpo();
+            corpoResultante.setNome(corpo1.getNome() + corpo2.getNome());
+            corpoResultante.setMassa(corpo1.getMassa() + corpo2.getMassa());
+            corpoResultante.setVelocidadeX(corpo1.getVelocidadeX() + corpo2.getVelocidadeX());
+            corpoResultante.setVelocidadeY(corpo1.getVelocidadeY() + corpo2.getVelocidadeY());
+
+            return corpoResultante;
+        }   
     }
 }
 
