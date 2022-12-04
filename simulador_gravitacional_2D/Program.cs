@@ -6,10 +6,12 @@ using simulador_gravitacional_2D;
 namespace simulador_gravitacional_2D{
     class Program{
         static void Main(string[] args){
+          try{
             StreamReader sr = new StreamReader("./../../../Files/entrada.txt");
             string linha = sr.ReadLine() ?? "";
             string[] cabecalho = linha.Split(";");
-
+            if(int.Parse(cabecalho[0]) > 200)
+              throw new Exception("Número máximo de corpos excedito! (max: 200)");
             Universo universo = new Universo();
             universo.setTempo(double.Parse(cabecalho[2]));
 
@@ -20,7 +22,9 @@ namespace simulador_gravitacional_2D{
                 linha = sr.ReadLine();
                 string[] parametros = linha.Split(";");
                 Corpos[count] = new Corpo();
-                
+
+                if(double.Parse(parametros[1]) > 500 || double.Parse(parametros[1]) < 1)
+                    throw new Exception("A Massa do Corpo deve estar em 1 e 500! (min: 1 ; max 500)");
                 Corpos[count].setNome(parametros[0]);
                 Corpos[count].setMassa(double.Parse(parametros[1]));
                 Corpos[count].setDensidade(double.Parse(parametros[2]));
@@ -40,6 +44,10 @@ namespace simulador_gravitacional_2D{
                 sw.WriteLine(universo.LogIteracao(Corpos));
             }
             sw.Close();
+          }
+          catch(Exception ex){
+            Console.WriteLine(ex.Message);
+          }
         }
     }
 }
